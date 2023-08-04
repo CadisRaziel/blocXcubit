@@ -17,6 +17,7 @@ class CounterPage extends StatelessWidget {
       ///Lemnbre-se ele não vai rebuildar a tela
       ///ou seja toda vez que eu clicar no botão que tenha o selector do CounterState ele vai emitir o que esta aqui dentro
       listener: (context, state) {
+        //Aqui poderia ser navegações, snackbar, dialog, etc
         String message = 'Estado inicial';
         if (state.status == CounterStatus.add) {
           switch (state.status) {
