@@ -73,10 +73,20 @@ class CounterPage extends StatelessWidget {
                     context.read<CounterBloc>().add(CounterAddEvent());
                   },
                   child: Text("adicionar")),
-              ElevatedButton(onPressed: () {}, child: Text("subtrair")),
-              ElevatedButton(onPressed: () {}, child: Text("reiniciar")),
               ElevatedButton(
-                  onPressed: () {}, child: Text("multiplicar por 2")),
+                  onPressed: () {
+                    context.read<CounterBloc>().add(CounterSubtractEvent());
+                  },
+                  child: Text("subtrair")),
+              ElevatedButton(
+                  onPressed: () {
+                    context.read<CounterBloc>().add(CounterResetEvent());
+                  },
+                  child: Text("reiniciar")),
+              ElevatedButton(
+                  onPressed: () {
+                     context.read<CounterBloc>().add(CounterMultiplyEvent(valor: 2));
+                  }, child: Text("multiplicar por 2")),
             ],
           ),
         ]),
