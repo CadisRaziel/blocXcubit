@@ -18,6 +18,6 @@ class CounterBloc extends Bloc<CounterEvent, CounterState>{
     counterAgora++;    
 
     ///emitir(atualizar) o estado
-    emitter(CounterState(message: state.message, counterValue: counterAgora)); //!-> LEMBRE-SE AQUI EU PASSO TODAS AS VARIAVEIS DO COUNTERSTATE MESMO SE NAO FOR USAR !!!!!
+    emitter(CounterState(message: state.message, counterValue: counterAgora, status: CounterStatus.add)); //!-> LEMBRE-SE AQUI EU PASSO TODAS AS VARIAVEIS DO COUNTERSTATE MESMO SE NAO FOR USAR !!!!!
   }
 }

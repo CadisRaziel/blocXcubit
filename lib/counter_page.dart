@@ -18,8 +18,26 @@ class CounterPage extends StatelessWidget {
       ///ou seja toda vez que eu clicar no botão que tenha o selector do CounterState ele vai emitir o que esta aqui dentro
       listener: (context, state) {
         String message = 'Estado inicial';
-        if(state is CounterPage) {
-          message = "Adicionando um valor";
+        if (state.status == CounterStatus.add) {
+          switch (state.status) {
+            case CounterStatus.initial:
+              message = "estado inicial";
+              break;
+            case CounterStatus.add:
+              message = "estado de add";
+              break;
+            case CounterStatus.subtract:
+              message = "estado de subtrair";
+              break;
+            case CounterStatus.reset:
+              message = "estado de reset";
+              break;
+            case CounterStatus.multiply:
+              message = "estado de multiplicar";
+              break;
+            default:
+              message = "erro";
+          }
         }
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
