@@ -10,3 +10,7 @@ class CounterState {
   ///Vai carregar nossa tela e entrar como counterValue = 0 
   CounterState.initial() : this(counterValue: 0);
 }
+
+class CounterAddState extends CounterState {
+  CounterAddState({required super.counterValue, required super.message});
+}
