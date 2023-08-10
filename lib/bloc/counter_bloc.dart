@@ -1,11 +1,12 @@
-import 'package:bloc/bloc.dart';
-import 'package:bloc_learning/bloc/counter_event.dart';
-import 'package:bloc_learning/bloc/counter_state.dart';
+// import 'package:bloc/bloc.dart';
+import 'package:bloc_learning/bloc/counter_bloc_event.dart';
+import 'package:bloc_learning/bloc/counter_bloc_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///Cuidado ao importar o bloc, pois existem dois blocs, o bloc e o flutter_bloc (e nos queremos só o bloc)
-class CounterBloc extends Bloc<CounterEvent, CounterState> {
+class CounterBloc extends Bloc<CounterBlocEvent, CounterBlocState> {
   // CounterBloc() : super(CounterState(counterValue: 0)); //-> Ao invés de eu fazer isso direto no construtor, la no counter state eu crio um construtor e passo ele como abaixo
-  CounterBloc() : super(CounterState.initial()) {
+  CounterBloc() : super(CounterBlocState.initial()) {
     ///Quando receber uma transição de CounterAddEvent eu vou informar pro bloc pra ele atualizar
     ///Quando receber uma transição de CounterSubtractEvent eu vou informar pro bloc pra ele atualizar
     ///Quando receber uma transição de CounterResetEvent eu vou informar pro bloc pra ele atualizar
@@ -17,7 +18,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
   }
 
   ///Criando o metodo para adicionar (no onPress do botão nos passamos a classe CounterBloc e o metodo  fica dentro dela)
-  void _adicionar(CounterAddEvent event, Emitter<CounterState> emitter) {
+  void _adicionar(CounterAddEvent event, Emitter<CounterBlocState> emitter) {
     ///Transição
     var counterAgora = state.counterValue;
     counterAgora++;
@@ -30,7 +31,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     //Fica assim, tudo que eu tenho no meu estado e eu nao quero alterar é só eu chamar no copyWith
   }
 
-  void _subtract(CounterSubtractEvent event, Emitter<CounterState> emitter) {
+  void _subtract(CounterSubtractEvent event, Emitter<CounterBlocState> emitter) {
     ///Transição
     var counterAgora = state.counterValue;
     counterAgora--;
@@ -43,7 +44,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     //Fica assim, tudo que eu tenho no meu estado e eu nao quero alterar é só eu chamar no copyWith
   }
 
-  void _reset(CounterResetEvent event, Emitter<CounterState> emitter) {
+  void _reset(CounterResetEvent event, Emitter<CounterBlocState> emitter) {
     ///emitir(atualizar) o estado
     emitter(state.copyWith(
         counterValue: 0,
@@ -52,7 +53,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     //Fica assim, tudo que eu tenho no meu estado e eu nao quero alterar é só eu chamar no copyWith
   }
 
-  void _multiply(CounterMultiplyEvent event, Emitter<CounterState> emitter) {
+  void _multiply(CounterMultiplyEvent event, Emitter<CounterBlocState> emitter) {
     var counterAgora = state.counterValue;
     counterAgora *= event.valor; //-> PEgando o parametro
 

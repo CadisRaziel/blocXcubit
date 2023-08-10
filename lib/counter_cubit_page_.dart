@@ -1,18 +1,19 @@
-import 'package:bloc_learning/bloc/counter_bloc.dart';
-import 'package:bloc_learning/bloc/counter_event.dart';
-import 'package:bloc_learning/bloc/counter_state.dart';
+import 'package:bloc_learning/cubit/counter_cubit.dart';
+import 'package:bloc_learning/cubit/counter_cubit_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterPage extends StatelessWidget {
-  const CounterPage({super.key});
+class CounterCubitPage extends StatelessWidget {
+  const CounterCubitPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    ///buscando o bloc
-    final bloc = context.read<CounterBloc>();
+   
+   //!Com o cubit ele continua tudo usando BlocListener e tudo do bloc !!!!
+  //! Apenas a chamadas das funçoes do counter_bloc são diferentes
 
-    return BlocListener<CounterBloc, CounterState>(
+ //* Aqui chamaos o counterCubit e não o counterBloc
+    return BlocListener<CounterCubit, CounterCubitState>(
       ///Toda vez que tiver uma nova saida do CounterState ele vai emitir o que esta aqui dentro
       ///Lemnbre-se ele não vai rebuildar a tela
       ///ou seja toda vez que eu clicar no botão que tenha o selector do CounterState ele vai emitir o que esta aqui dentro
@@ -50,7 +51,8 @@ class CounterPage extends StatelessWidget {
           title: const Text(''),
         ),
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          BlocSelector<CounterBloc, CounterState, String>(
+          //* Aqui chamaos o counterCubit e não o counterBloc
+          BlocSelector<CounterCubit, CounterCubitState, String>(
               selector: (state) => state.message,
               builder: (context, String message) {
                 return Text(
@@ -58,7 +60,8 @@ class CounterPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
               }),
-          BlocSelector<CounterBloc, CounterState, int>(
+                //* Aqui chamaos o counterCubit e não o counterBloc
+          BlocSelector<CounterCubit, CounterCubitState, int>(
               selector: (state) => state.counterValue,
               builder: (context, int count) {
                 return Text(
@@ -70,22 +73,26 @@ class CounterPage extends StatelessWidget {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    context.read<CounterBloc>().add(CounterAddEvent());
+                    // context.read<CounterBloc>().add(CounterAddEvent()); //*-> Bloc
+                    context.read<CounterCubit>().adicionar(); //*-> Cubit
                   },
                   child: Text("adicionar")),
               ElevatedButton(
                   onPressed: () {
-                    context.read<CounterBloc>().add(CounterSubtractEvent());
+                    // context.read<CounterBloc>().add(CounterSubtractEvent()); //*-> Bloc
+                    context.read<CounterCubit>().subtract(); //*-> Cubit
                   },
                   child: Text("subtrair")),
               ElevatedButton(
                   onPressed: () {
-                    context.read<CounterBloc>().add(CounterResetEvent());
+                    // context.read<CounterBloc>().add(CounterResetEvent()); //*-> Bloc
+                    context.read<CounterCubit>().reset(); //*-> Cubit
                   },
                   child: Text("reiniciar")),
               ElevatedButton(
                   onPressed: () {
-                     context.read<CounterBloc>().add(CounterMultiplyEvent(valor: 2));
+                    //  context.read<CounterBloc>().add(CounterMultiplyEvent(valor: 2)); //*-> Bloc
+                     context.read<CounterCubit>().multiply(2); //*-> Cubit
                   }, child: Text("multiplicar por 2")),
             ],
           ),
